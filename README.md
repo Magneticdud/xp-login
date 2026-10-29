@@ -62,6 +62,10 @@ xp-mint/
   mock.js          finto oggetto lightdm per l'anteprima
 ```
 
+## Alternative
+
+Esiste anche [WelcomeXP](https://github.com/mshernandez5/WelcomeXP) di mshernandez5, un altro tema in stile XP per nody-greeter e web-greeter. L'ho scoperto solo dopo aver pubblicato questo progetto: è nato in modo indipendente.
+
 ## Licenza
 
 Distribuito con licenza [GNU GPL v3](LICENSE) o successiva.
