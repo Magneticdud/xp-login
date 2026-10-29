@@ -53,7 +53,7 @@
         const img = new Image();
         img.alt = "";
         img.onload = () => { const av = li.querySelector(".avatar"); av.innerHTML = ""; av.appendChild(img); };
-        img.src = user.image.startsWith("/") ? "file://" + user.image : user.image;
+        img.src = user.image.startsWith("/") ? "web-greeter://app" + encodeURI(user.image) : user.image;
       }
 
       li.addEventListener("click", (e) => {
