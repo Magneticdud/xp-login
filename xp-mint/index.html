@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>XP Mint</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="screen">
+    <header class="bar top"></header>
+
+    <main class="middle">
+      <section class="left">
+        <div class="brand">
+          <svg class="leaf" viewBox="0 0 64 64" aria-hidden="true">
+            <defs>
+              <linearGradient id="lg" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#b8f07a"/>
+                <stop offset="1" stop-color="#4caa2c"/>
+              </linearGradient>
+            </defs>
+            <path d="M8 56 C8 24 28 8 58 6 C56 36 40 56 8 56 Z" fill="url(#lg)" stroke="#2d7a17" stroke-width="2"/>
+            <path d="M12 52 C24 38 36 26 52 12" stroke="#2d7a17" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          </svg>
+          <div class="wordmark">
+            <span class="small">Linux</span>
+            <span class="big">Mint<sup>xp</sup></span>
+          </div>
+        </div>
+        <p class="hint">Per iniziare, fare clic sul nome utente</p>
+      </section>
+
+      <div class="divider" aria-hidden="true"></div>
+
+      <section class="right">
+        <ul id="users" class="users"></ul>
+      </section>
+    </main>
+
+    <footer class="bar bottom">
+      <button id="power" class="power" type="button">
+        <span class="power-icon" aria-hidden="true"></span>
+        <span>Spegni il computer</span>
+      </button>
+      <p class="footnote">Dopo aver effettuato l'accesso, è possibile aggiungere o modificare<br>gli account dalle Impostazioni di sistema.</p>
+    </footer>
+  </div>
+
+  <div id="shutdown" class="dialog-backdrop" hidden>
+    <div class="dialog" role="dialog" aria-labelledby="sd-title">
+      <div class="dialog-head">
+        <span id="sd-title">Spegni computer</span>
+      </div>
+      <div class="dialog-body">
+        <button type="button" class="opt" data-action="suspend">
+          <span class="opt-btn standby" aria-hidden="true"></span>Standby
+        </button>
+        <button type="button" class="opt" data-action="shutdown">
+          <span class="opt-btn off" aria-hidden="true"></span>Spegni
+        </button>
+        <button type="button" class="opt" data-action="restart">
+          <span class="opt-btn restart" aria-hidden="true"></span>Riavvia
+        </button>
+      </div>
+      <div class="dialog-foot">
+        <button type="button" id="cancel" class="xp-btn">Annulla</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="welcome" class="welcome" hidden>benvenuto</div>
+
+  <script src="mock.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
