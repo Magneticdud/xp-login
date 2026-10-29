@@ -2,6 +2,8 @@
 
 Un tema di login in stile Windows XP per **Linux Mint**, pensato per [nody-greeter](https://github.com/JezerM/nody-greeter) (il greeter web di LightDM). Sostituisce la schermata di accesso di Mint con una ispirata a quella di XP: barre blu in alto e in basso, elenco utenti con avatar colorati e logo "Linux Mint xp".
 
+![Schermata di login XP Mint](docs/screenshot.png)
+
 ## Requisiti
 
 - Linux Mint con LightDM
