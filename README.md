@@ -25,7 +25,8 @@ Lo script:
 
 1. copia il tema in `/usr/share/web-greeter/themes/xp-mint`;
 2. imposta `theme: xp-mint` in `/etc/lightdm/web-greeter.yml` (salvando una copia in `web-greeter.yml.bak`);
-3. crea `/etc/lightdm/lightdm.conf.d/99-xp-mint.conf` per far usare a LightDM il greeter web.
+3. crea `/etc/lightdm/lightdm.conf.d/99-xp-mint.conf` per far usare a LightDM il greeter web;
+4. sostituisce i suoni di Cinnamon `login.oga` e `logout.ogg` in `/usr/share/mint-artwork/sounds` con quelli di `suoni/` (gli originali restano come `*.orig`).
 
 Esci dalla sessione o riavvia per vedere la nuova schermata.
 
@@ -37,7 +38,7 @@ Se qualcosa va storto, passa a una console con `Ctrl+Alt+F2`, accedi e lancia:
 sudo ./installa.sh --ripristina
 ```
 
-Al prossimo avvio tornerà la schermata di login originale di Mint.
+Al prossimo avvio tornerà la schermata di login originale di Mint, e vengono rimessi anche i suoni originali.
 
 ## Anteprima nel browser
 

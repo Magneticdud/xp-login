@@ -153,43 +153,15 @@
       const action = btn.dataset.action;
       if (can[action] === false) { btn.disabled = true; btn.style.opacity = ".4"; }
       btn.addEventListener("click", () => {
-        if (action === "suspend") { close(); lightdm.suspend(); return; }
-        // Spegni/Riavvia: attende la fine del suono (max 6 s) prima di agire
-        btn.disabled = true;
-        Promise.race([playSound("shutdown"), new Promise((r) => setTimeout(r, 6000))])
-          .then(() => lightdm[action]());
+        if (action === "suspend") close();
+        lightdm[action]();
       });
-    });
-  }
-
-  // Suoni: metti "startup" e "shutdown" (.mp3/.ogg/.wav) nella cartella del tema.
-  // Ritorna una promise che si risolve quando il suono finisce (o subito se manca).
-  function playSound(name, { retryOnInput = false } = {}) {
-    const exts = ["mp3", "ogg", "wav"];
-    return new Promise((resolve) => {
-      const tryPlay = (i) => {
-        if (i >= exts.length) return resolve();
-        const audio = new Audio(`${name}.${exts[i]}`);
-        audio.addEventListener("error", () => tryPlay(i + 1));
-        audio.addEventListener("ended", resolve);
-        audio.play().catch((err) => {
-          if (retryOnInput && err && err.name === "NotAllowedError") {
-            // Autoplay bloccato: riprova al primo input dell'utente
-            const retry = () => audio.play().catch(() => {});
-            ["pointerdown", "keydown"].forEach((ev) => window.addEventListener(ev, retry, { once: true }));
-          } else if (!(err && err.name === "NotSupportedError")) {
-            resolve();
-          }
-        });
-      };
-      tryPlay(0);
     });
   }
 
   function start() {
     if (started || !window.lightdm) return;
     started = true;
-    playSound("startup", { retryOnInput: true });
     lightdm.show_prompt.connect(() => focusPassword());
     lightdm.show_message.connect((text) => console.log("lightdm:", text));
     lightdm.authentication_complete.connect(onAuthComplete);

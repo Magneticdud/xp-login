@@ -9,6 +9,8 @@ SRC="$(cd "$(dirname "$0")" && pwd)/$THEME"
 THEMES_DIR=/usr/share/web-greeter/themes
 CONF=/etc/lightdm/web-greeter.yml
 OVERRIDE=/etc/lightdm/lightdm.conf.d/99-xp-mint.conf
+SUONI_SRC="$(cd "$(dirname "$0")" && pwd)/suoni"
+SUONI_DIR=/usr/share/mint-artwork/sounds   # suoni di sistema di Cinnamon
 
 if [[ $EUID -ne 0 ]]; then
   echo "Lancia lo script con sudo." >&2
@@ -17,6 +19,9 @@ fi
 
 if [[ "${1:-}" == "--ripristina" ]]; then
   rm -f "$OVERRIDE"
+  for f in login.oga logout.ogg; do
+    [[ -f "$SUONI_DIR/$f.orig" ]] && mv -f "$SUONI_DIR/$f.orig" "$SUONI_DIR/$f"
+  done
   echo "Ripristinato: al prossimo avvio torna la schermata di login di Mint."
   exit 0
 fi
@@ -37,11 +42,20 @@ cp -r "$SRC"/. "$THEMES_DIR/$THEME/"
 echo "Tema copiato in $THEMES_DIR/$THEME"
 
 if [[ -f "$CONF" ]]; then
-  cp -n "$CONF" "$CONF.bak"
+  [[ -e "$CONF.bak" ]] || cp "$CONF" "$CONF.bak"
   sed -i -E "0,/^(\s*)theme:.*/s//\1theme: $THEME/" "$CONF"
   echo "Tema impostato in $CONF (copia di sicurezza: $CONF.bak)"
 else
   echo "Attenzione: $CONF non trovato, imposta a mano 'theme: $THEME'." >&2
+fi
+
+# Suoni di avvio/spegnimento: li gestisce Cinnamon, basta sostituire i file.
+if [[ -d "$SUONI_DIR" ]]; then
+  [[ -e "$SUONI_DIR/login.oga.orig" ]] || cp "$SUONI_DIR/login.oga" "$SUONI_DIR/login.oga.orig"
+  [[ -e "$SUONI_DIR/logout.ogg.orig" ]] || cp "$SUONI_DIR/logout.ogg" "$SUONI_DIR/logout.ogg.orig"
+  install -m 644 "$SUONI_SRC/startup.ogg" "$SUONI_DIR/login.oga"
+  install -m 644 "$SUONI_SRC/shutdown.ogg" "$SUONI_DIR/logout.ogg"
+  echo "Suoni installati in $SUONI_DIR (originali salvati come *.orig)"
 fi
 
 install -d "$(dirname "$OVERRIDE")"
